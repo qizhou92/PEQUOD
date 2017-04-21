@@ -1,0 +1,103 @@
+public class toy_benchmark.ClimbingStairs1 extends java.lang.Object
+{
+
+    public void <init>()
+    {
+        toy_benchmark.ClimbingStairs1 r0;
+
+        r0 := @this: toy_benchmark.ClimbingStairs1;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public static int climbStairs1(int)
+    {
+        int i0, i1, i2, i3, i4;
+
+        i0 := @parameter0: int;
+
+        i2 = 1;
+
+        i3 = 1;
+
+        i4 = 2;
+
+        goto label2;
+
+     label1:
+        i1 = i3;
+
+        i3 = i3 + i2;
+
+        i2 = i1;
+
+        i4 = i4 + 1;
+
+     label2:
+        if i4 <= i0 goto label1;
+
+        return i3;
+    }
+
+    public static int climbStairs2(int)
+    {
+        int i0, i1, i2, i3, i4;
+
+        i0 := @parameter0: int;
+
+        i1 = 2;
+
+        i2 = 1;
+
+        i3 = 2;
+
+        goto label2;
+
+     label1:
+        i4 = i1;
+
+        i1 = i1 + i2;
+
+        i2 = i4;
+
+        i3 = i3 + 1;
+
+     label2:
+        if i3 < i0 goto label1;
+
+        return i1;
+    }
+
+    public static int climbStairs3(int)
+    {
+        int i0, i1, i2, i3, i4;
+
+        i0 := @parameter0: int;
+
+        i1 = 1;
+
+        i2 = 1;
+
+        i3 = 1;
+
+        i4 = 2;
+
+        goto label2;
+
+     label1:
+        i3 = i1 + i2;
+
+        i2 = i1;
+
+        i1 = i3;
+
+        i4 = i4 + 1;
+
+     label2:
+        if i4 <= i0 goto label1;
+
+        return i3;
+    }
+}

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry exported="true" kind="lib" path="lib/soot-trunk.jar"/>
+	<classpathentry kind="lib" path="/Users/qizhou/Documents/workspace/Equivalence/lib/jgrapht-ext-0.9.1-uber.jar"/>
+	<classpathentry kind="lib" path="lib/com.microsoft.z3.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

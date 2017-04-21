@@ -1,0 +1,62 @@
+public class toy_benchmark.test11 extends java.lang.Object
+{
+
+    public void <init>()
+    {
+        toy_benchmark.test11 r0;
+
+        r0 := @this: toy_benchmark.test11;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public static void main(java.lang.String[]) throws java.io.IOException
+    {
+        java.lang.String[] r0;
+        int i0, i1, i2, $i3, i4;
+        java.io.PrintWriter $r3;
+        java.io.PrintStream $r4;
+        java.util.Scanner $r5;
+        java.io.InputStream $r6;
+
+        r0 := @parameter0: java.lang.String[];
+
+        $r3 = new java.io.PrintWriter;
+
+        $r4 = <java.lang.System: java.io.PrintStream out>;
+
+        specialinvoke $r3.<java.io.PrintWriter: void <init>(java.io.OutputStream)>($r4);
+
+        $r5 = new java.util.Scanner;
+
+        $r6 = <java.lang.System: java.io.InputStream in>;
+
+        specialinvoke $r5.<java.util.Scanner: void <init>(java.io.InputStream)>($r6);
+
+        i0 = virtualinvoke $r5.<java.util.Scanner: int nextInt()>();
+
+        i4 = 0;
+
+        goto label2;
+
+     label1:
+        i1 = virtualinvoke $r5.<java.util.Scanner: int nextInt()>();
+
+        i2 = virtualinvoke $r5.<java.util.Scanner: int nextInt()>();
+
+        $i3 = i1 + i2;
+
+        virtualinvoke $r3.<java.io.PrintWriter: void println(int)>($i3);
+
+        virtualinvoke $r3.<java.io.PrintWriter: void flush()>();
+
+        i4 = i4 + 1;
+
+     label2:
+        if i4 < i0 goto label1;
+
+        return;
+    }
+}
