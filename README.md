@@ -6,36 +6,28 @@
  2. PEQUOD implemented on [SOOT](https://sable.github.io/soot/) as the intermeida representation for Java program, and [Z3]
  (https://github.com/Z3Prover/z3) as the SMT solver to verify the equivalence propery corss two programs.  
 
-## Examples
-
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdownFASD
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+### Examples
+ 
+```java
+public int
+  addDigits0(int num) {
+  int result = num -
+    9 * ((num - 1) / 9);
+  return result; }
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+```java
+public int
+  addDigits1(int num) {
+  while (num > 9) {
+    num = num / 10 +
+      num % 10; }
+  return num; }
+}
+```
 
-### Jekyll Themes
+PEQUOD can verify when num is greater or equal to zero, addDigits0 and addDigits1 produce the same return value.
+   
+### Reference Paper
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/qizhou92/PEQUOD/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+Completely Automated Equivalence Proofs
