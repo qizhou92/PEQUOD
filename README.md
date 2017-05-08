@@ -3,8 +3,8 @@
  1. PEQUOD is a tool, implemented on Java, for the automatic static verification for checking program equivalence between two 
  programs.
  
- 2. PEQUOD implemented on [SOOT](https://sable.github.io/soot/) as the intermeida representation for Java program, and [Z3]
- (https://github.com/Z3Prover/z3) as the SMT solver to verify the equivalence propery corss two programs.  
+ 2. PEQUOD implemented on [SOOT](https://sable.github.io/soot/) as the intermeida representation for Java program, and 
+ [Z3](https://github.com/Z3Prover/z3) as the SMT solver to verify the equivalence propery corss two programs.  
 
 ### Examples
  
