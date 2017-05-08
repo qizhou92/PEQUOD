@@ -1,8 +1,12 @@
-## Welcome to GitHub Pages
+### Automatic Jave Program Equivalence Verification
+ 
+ 1. PEQUOD is a tool, implemented on Java, for the automatic static verification for checking program equivalence between two 
+ programs.
+ 
+ 2. PEQUOD implemented on [SOOT](https://sable.github.io/soot/) as the intermeida representation for Java program, and [Z3]
+ (https://github.com/Z3Prover/z3) as the SMT solver to verify the equivalence propery corss two programs.  
 
-You can use the [editor on GitHub](https://github.com/qizhou92/PEQUOD/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
-
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+## Examples
 
 ### Markdown
 
