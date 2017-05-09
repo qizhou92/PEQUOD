@@ -17,17 +17,16 @@ import soot.Transform;
 import soot.options.Options;
 import soot.toolkits.graph.ExceptionalUnitGraph;
 
-public class TestDriver {
+public class mapFileToSignature {
 	static Map<String, Body> stores = new HashMap<String, Body>();
-	static Body reference;
-	static Body rightBody;
+	static String signature;
 	public static void main(String[] args) throws IOException, InterruptedException {
 		Options.v().set_src_prec(Options.src_prec_c);
 		Options.v().set_output_format(Options.output_format_jimple);
 		Options.v().set_allow_phantom_refs(true);
 		String input=args[0];
-		String referenceSignature=args[1];
-		String bodySignature=args[2];
+		String outputfile=args[1];
+		String foldername=args[2];
 		String outputFolder=input+"/output";
 		String[] sootArgs = new String[] { "-process-dir", input, "-output-dir", outputFolder };
 		PackManager.v().getPack("jtp").add(new Transform("jtp.sim-itps1", new BodyTransformer() {
@@ -39,30 +38,15 @@ public class TestDriver {
 				String methodSig = method.getSignature();
 				System.out.println(methodSig);
 				if ((!methodSig.contains("<init>")) && (!methodSig.contains("<clinit>"))) {
-					if(methodSig.contains(bodySignature)){
-						rightBody=body;
-					}
-					stores.put(methodSig, body);
+					signature=methodSig;
 				}
-				if (methodSig.contains(referenceSignature)||methodSig.equals(referenceSignature)) {
-					reference = body;
-				}
-
 			}
 		}));
 		soot.Main.main(sootArgs);
-		ExceptionalUnitGraph cfgLeft = new ExceptionalUnitGraph(reference);
-		ExceptionalUnitGraph cfgRight = new ExceptionalUnitGraph(rightBody);
-		PairDAG theSolver = new PairDAG(cfgLeft, cfgRight, "test",true);
-		try {
-			if (theSolver.isEquivalent()) {
-				System.out.println("These two programs are equivalent");
-			} else {
-				System.out.println("These two programs are not equivalent");
-			}
-		} catch (IOException e) {
-			System.out.println("Unexpected Errors");
-			System.exit(0);
-		}
+		FileWriter fw_write = new FileWriter(outputfile, true);
+		PrintWriter pw_write = new PrintWriter(fw_write);
+		pw_write.println(signature);
+		pw_write.println(foldername);
+		pw_write.close();
 	}
 }

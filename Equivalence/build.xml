@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. --><project basedir="." default="build" name="Equivalence">
+    <property environment="env"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.8"/>
+    <property name="source" value="1.8"/>
+    <path id="Persisted container [org.eclipse.pde.core.requiredPlugins for project [Equivalence]].libraryclasspath"/>
+    <path id="Equivalence.classpath">
+        <pathelement location="bin"/>
+        <path refid="Persisted container [org.eclipse.pde.core.requiredPlugins for project [Equivalence]].libraryclasspath"/>
+        <pathelement location="lib/soot-trunk.jar"/>
+        <pathelement location="lib/jgrapht-ext-0.9.1-uber.jar"/>
+        <pathelement location="lib/com.microsoft.z3.jar"/>
+    </path>
+    <target name="init">
+        <mkdir dir="bin"/>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="src">
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="clean">
+        <delete dir="bin"/>
+    </target>
+    <target depends="clean" name="cleanall"/>
+    <target depends="build-subprojects,build-project" name="build"/>
+    <target name="build-subprojects"/>
+    <target depends="init" name="build-project">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
+            <src path="src"/>
+            <classpath refid="Equivalence.classpath"/>
+        </javac>
+    </target>
+    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
+    <target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
+        <copy todir="${ant.library.dir}">
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </copy>
+        <unzip dest="${ant.library.dir}">
+            <patternset includes="jdtCompilerAdapter.jar"/>
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </unzip>
+    </target>
+    <target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
+        <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
+        <antcall target="build"/>
+    </target>
+    <target name="addDigits">
+        <java classname="leetCodeTest.addDigits" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="addDigits1">
+        <java classname="leetCodeTest.addDigits1" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="addDigits2">
+        <java classname="leetCodeTest.addDigits2" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="addDigits3">
+        <java classname="leetCodeTest.addDigits3" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="ArrayExample">
+        <java classname="playWithZ3.ArrayExample" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="ArrayTest">
+        <java classname="toy_test.ArrayTest" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="bestTimeToBuySell">
+        <java classname="leetCodeTest.bestTimeToBuySell" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="checkDivision">
+        <java classname="playWithZ3.checkDivision" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="ClimbingStairs1">
+        <java classname="leetCodeTest.ClimbingStairs1" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="ClimbingStairs2">
+        <java classname="leetCodeTest.ClimbingStairs2" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="ClimbingStairs3">
+        <java classname="leetCodeTest.ClimbingStairs3" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="convert">
+        <java classname="dirverTest.convert" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="countEvent">
+        <java classname="codeBat.countEvent" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="countNumbersWithUniqueDigits">
+        <java classname="leetCodeTest.countNumbersWithUniqueDigits" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="FLOW001">
+        <java classname="testCode.FLOW001" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="flow08Test1">
+        <java classname="codeTesting.flow08Test1" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="getSimplify">
+        <java classname="playWithZ3.getSimplify" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="isPalindrome">
+        <java classname="leetCodeTest.isPalindrome" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="isPowerOf2">
+        <java classname="leetCodeTest.isPowerOf2" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="isPowerOfTwo">
+        <java classname="leetCodeTest.isPowerOfTwo" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="MoveZeros">
+        <java classname="leetCodeTest.MoveZeros" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="NimGame">
+        <java classname="leetCodeTest.NimGame" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="NimGame1">
+        <java classname="leetCodeTest.NimGame1" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="powerOf2">
+        <java classname="leetCodeTest.powerOf2" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="removeElement">
+        <java classname="leetCodeTest.removeElement" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="reverseInteger1">
+        <java classname="leetCodeTest.reverseInteger1" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="reverseInteger2">
+        <java classname="leetCodeTest.reverseInteger2" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="reverseInteger3">
+        <java classname="leetCodeTest.reverseInteger3" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="rob">
+        <java classname="leetCodeTest.rob" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="scoreIncreasing">
+        <java classname="codeBat.scoreIncreasing" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="Test1 (2)">
+        <java classname="playWithSoot.Test1" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="Test1">
+        <java classname="toy_test.test1" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="test10">
+        <java classname="toy_test.test10" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="test2">
+        <java classname="toy_test.test2" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="test3">
+        <java classname="toy_test.test3" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="test4">
+        <java classname="toy_test.test4" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="test5">
+        <java classname="toy_test.test5" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="test6">
+        <java classname="toy_test.test6" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="test7">
+        <java classname="toy_test.test7" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="test8">
+        <java classname="toy_test.test8" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="test9">
+        <java classname="toy_test.test9" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="TestAdd">
+        <java classname="playWithZ3.TestAdd" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="testAddition">
+        <java classname="dirverTest.testAddition" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="testDriver (1)">
+        <java classname="dirverTest.testDriver" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="testDriver2 (1)">
+        <java classname="dirverTest.testDriver2" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="testDriver2">
+        <java classname="toy_test.testDriver2" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="testDriver3">
+        <java classname="dirverTest.testDriver3" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="testDriver4">
+        <java classname="dirverTest.testDriver4" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="testDriver5">
+        <java classname="dirverTest.testDriver5" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="testDriverBaseCheck">
+        <java classname="dirverTest.testDriverBaseCheck" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="TestEntail">
+        <java classname="playWithZ3.TestEntail" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="testGenerateSet">
+        <java classname="playWithZ3.testGenerateSet" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="TestGetArgFromExpr">
+        <java classname="playWithZ3.TestGetArgFromExpr" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="testInvariant">
+        <java classname="playWithZ3.testInvariant" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="testRe">
+        <java classname="playWithZ3.testRe" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="TestReWrite">
+        <java classname="playWithZ3.TestReWrite" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="TestTree2">
+        <java classname="playWithZ3.TestTree2" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="TestTreeInterpolant">
+        <java classname="playWithZ3.TestTreeInterpolant" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="TestZ3">
+        <java classname="playWithZ3.TestZ3" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="trailingZeroes1">
+        <java classname="leetCodeTest.trailingZeroes1" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="trailingZeroes2">
+        <java classname="leetCodeTest.trailingZeroes2" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="trailingZeroes3">
+        <java classname="leetCodeTest.trailingZeroes3" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="trailingZeroes4">
+        <java classname="leetCodeTest.trailingZeroes4" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="trailingZeroes5">
+        <java classname="leetCodeTest.trailingZeroes5" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="whyLoop">
+        <java classname="dirverTest.whyLoop" failonerror="true" fork="yes">
+            <classpath refid="Equivalence.classpath"/>
+        </java>
+    </target>
+    <target name="BuildJar">
+        <jar destfile="jar/pequod.jar" basedir="bin">
+            <manifest>
+                <attribute name="Main-Class" value="dirverTest.TestDriver"/>
+            </manifest>
+            <zipgroupfileset dir="lib" includes="*.jar" />
+        </jar>
+    </target>
+
+</project>

@@ -229,6 +229,7 @@ public class DAGinterpolants {
 				}
 				BoolExpr unSatFormula = this.ictx.mkAnd(addInterpolant, allDescendConstrains);
 				Params params = this.ictx.mkParams();
+				//params.add("random-seed",42);
 				ComputeInterpolantResult result = this.ictx.ComputeInterpolant(unSatFormula, params);
 				Z3_lbool status = result.status;
 				if (status == Z3_lbool.Z3_L_FALSE) {
@@ -299,6 +300,7 @@ public class DAGinterpolants {
 			//System.out.println(allDescendConstrains);
 			BoolExpr unSatFormula = this.ictx.mkAnd(addInterpolant, allDescendConstrains);
 			Params params = this.ictx.mkParams();
+			//params.add("random-seed", 42);
 			ComputeInterpolantResult result = this.ictx.ComputeInterpolant(unSatFormula, params);
 			Z3_lbool status = result.status;
 			if (status == Z3_lbool.Z3_L_FALSE) {

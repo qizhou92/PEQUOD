@@ -2,7 +2,6 @@ package equivalence;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -34,13 +33,11 @@ import com.microsoft.z3.enumerations.Z3_lbool;
 
 import dot_output.edgeAttribute;
 import dot_output.vertexAttribute;
-import dot_output.vertexID;
 import dot_output.vertexName2;
 import dot_output.vertextName;
 import soot.toolkits.graph.ExceptionalUnitGraph;
 import z3_helper.PathCoverter;
 import z3_helper.PathHelper;
-import z3_helper.Z3Rewriter;
 import z3_helper.Z3Utility;
 
 public class PairDAG {
@@ -72,8 +69,9 @@ public class PairDAG {
 	private BoolExpr extraPrePolicy;
 	private Model notCorrectModel;
 	private Set<PairStep> allCreatedStep;
+	private boolean isUnsatCore;
 
-	public PairDAG(ExceptionalUnitGraph leftCFG, ExceptionalUnitGraph rightCFG, String outputDir) {
+	public PairDAG(ExceptionalUnitGraph leftCFG, ExceptionalUnitGraph rightCFG, String outputDir,boolean isUnsatCore) {
 		this.allCreatedStep = new HashSet<PairStep>();
 		this.outputDir = outputDir;
 		this.ictx = new InterpolationContext();
@@ -104,6 +102,7 @@ public class PairDAG {
 		this.implication = new HashMap<PairStep, Set<PairStep>>();
 		this.outputNumber = 1;
 		this.implication = new HashMap<PairStep, Set<PairStep>>();
+		this.isUnsatCore=isUnsatCore;
 	}
 
 	public void insertNewGroupOfSteps(Set<HyperEdge> gSteps, PairStep parent) {
@@ -209,6 +208,7 @@ public class PairDAG {
 		System.out.println("doing a refine");
 		this.covertToZ3();
 		this.generatePolicy();
+		if(this.isUnsatCore){
 		Map<BoolExpr, BoolExpr> NameToFormula = new HashMap<BoolExpr, BoolExpr>();
 		int formulaCount = 1;
 		for (Entry<Node, BoolExpr> e : this.leftPathZ3.entrySet()) {
@@ -276,6 +276,7 @@ public class PairDAG {
 			}
 		}
 		this.rightPathZ3 = RightNewNodeToPath;
+		}
 		Set<PairStep> infeasibleSteps = calculateInfeasibleStep(this.EntryStep);
 		// System.out.println("the size of infeasible
 		// set:"+infeasibleSteps.size());
@@ -322,6 +323,7 @@ public class PairDAG {
 				// System.out.println(allDescendConstrains);
 				// System.out.println(unSatFormula);
 				Params params = this.ictx.mkParams();
+				//params.add("random-seed", 42);
 				ComputeInterpolantResult result = this.ictx.ComputeInterpolant(unSatFormula, params);
 				Z3_lbool status = result.status;
 				if (status == Z3_lbool.Z3_L_FALSE) {
@@ -385,6 +387,7 @@ public class PairDAG {
 			BoolExpr addInterpolant = this.ictx.MkInterpolant(A);
 			BoolExpr unSatFormula = this.ictx.mkAnd(addInterpolant, allDescendConstrains);
 			Params params = this.ictx.mkParams();
+			//params.add("random-seed", 42);
 			ComputeInterpolantResult result = this.ictx.ComputeInterpolant(unSatFormula, params);
 			Z3_lbool status = result.status;
 			if (status == Z3_lbool.Z3_L_FALSE) {
@@ -522,8 +525,8 @@ public class PairDAG {
 		}
 		//System.out.println(this.pre_policy);
 		// System.out.println("b");
-		// System.out.println("the policy");
-		// System.out.println(this.policy.toString());
+		//System.out.println("the policy");
+		//System.out.println(this.policy.toString());
 	}
 
 	public void Calculateimplication() {
@@ -774,7 +777,138 @@ public class PairDAG {
 		this.safeResult.put(p, false);
 		return false;
 	}
-
+	public boolean ifSafe2(Set<PairStep> visited, PairStep p) {
+		if (this.safeResult.containsKey(p)) {
+			return this.safeResult.get(p);
+		}
+		if (p.isEntry() && p.IfRefine()) {
+			this.safeResult.put(p, true);
+			p.setSafe();
+			return true;
+		}
+		if (p.isFalse()) {
+			this.safeResult.put(p, true);
+			p.setSafe();
+			return true;
+		}
+		if (this.implication.containsKey(p)) {
+			Set<PairStep> coveredBy = this.implication.get(p);
+			for (PairStep coveredByStep : coveredBy) {
+				if (visited.contains(coveredByStep)) {
+					this.safeResult.put(p, true);
+					p.setSafe();
+					return true;
+				}
+			}
+		}
+		Set<PairStep> leftProgram = p.getLeftProgram();
+		Set<PairStep> rightProgram = p.getRightProgram();
+		if (leftProgram.isEmpty() && rightProgram.isEmpty()) {
+			this.safeResult.put(p, false);
+			return false;
+		}
+		if ((leftProgram.isEmpty()) && (!rightProgram.isEmpty())) {
+			boolean isSafe = true;
+			for (PairStep rightStep : rightProgram) {
+				if (visited.contains(rightStep)) {
+					continue;
+				}
+				Set<PairStep> newVisited = new HashSet<PairStep>();
+				for (PairStep pStep : visited) {
+					if (!newVisited.contains(pStep)) {
+						newVisited.add(pStep);
+					}
+				}
+				if (!newVisited.contains(p)) {
+					newVisited.add(p);
+				}
+				if (!this.ifSafe2(newVisited, rightStep)) {
+					isSafe = false;
+				}
+			}
+			if (isSafe) {
+				this.safeResult.put(p, true);
+				p.setSafe();
+				return true;
+			}
+		}
+		if ((rightProgram.isEmpty()) && (!leftProgram.isEmpty())) {
+			boolean isSafe = true;
+			for (PairStep leftStep : leftProgram) {
+				if (visited.contains(leftStep)) {
+					continue;
+				}
+				Set<PairStep> newVisited = new HashSet<PairStep>();
+				for (PairStep pStep : visited) {
+					if (!newVisited.contains(pStep)) {
+						newVisited.add(pStep);
+					}
+				}
+				if (!newVisited.contains(p)) {
+					newVisited.add(p);
+				}
+				if (!this.ifSafe2(newVisited, leftStep)) {
+					isSafe = false;
+				}
+			}
+			if (isSafe) {
+				this.safeResult.put(p, true);
+				p.setSafe();
+				return true;
+			}
+		}
+		if ((!rightProgram.isEmpty()) && (!leftProgram.isEmpty())) {
+			boolean LeftIsSafe = true;
+			for (PairStep leftStep : leftProgram) {
+				if (visited.contains(leftStep)) {
+					continue;
+				}
+				Set<PairStep> newVisited = new HashSet<PairStep>();
+				for (PairStep pStep : visited) {
+					if (!newVisited.contains(pStep)) {
+						newVisited.add(pStep);
+					}
+				}
+				if (!newVisited.contains(p)) {
+					newVisited.add(p);
+				}
+				if (!this.ifSafe2(newVisited, leftStep)) {
+					LeftIsSafe = false;
+				}
+			}
+			boolean RightIsSafe = true;
+			for (PairStep rightStep : rightProgram) {
+				if (visited.contains(rightStep)) {
+					continue;
+				}
+				Set<PairStep> newVisited = new HashSet<PairStep>();
+				for (PairStep pStep : visited) {
+					if (!newVisited.contains(pStep)) {
+						newVisited.add(pStep);
+					} else {
+						// System.out.println("there is an error in PairDAG
+						// check safe");
+					}
+				}
+				if (!newVisited.contains(p)) {
+					newVisited.add(p);
+				} else {
+					// System.out.println("there is an error");
+				}
+				if (!this.ifSafe2(newVisited, rightStep)) {
+					RightIsSafe = false;
+				}
+			}
+			if (LeftIsSafe && RightIsSafe) {
+				this.safeResult.put(p, true);
+				p.setSafe();
+				return true;
+			}
+		}
+		// System.out.println(p.getCount()+"is fail");
+		this.safeResult.put(p, false);
+		return false;
+	}
 	public boolean isEquivalent() throws IOException {
 		int i = 0;
 		while (!this.potentialHyperEdges.isEmpty()) {

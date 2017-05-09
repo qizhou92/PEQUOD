@@ -21,8 +21,9 @@ public class convert {
 		Options.v().set_output_format(Options.output_format_jimple);
 		Options.v().set_allow_phantom_refs(true);
 		String input=args[0];
+		String outputFolder=input+"/output";
 		String[] sootArgs = new String[] { "-process-dir", input,
-				"-output-dir", "src/output/toy_benchmark" };
+				"-output-dir",outputFolder };
 		PackManager.v().getPack("jtp").add(new Transform("jtp.sim-itps1", new BodyTransformer() {
 
 			@Override
@@ -31,7 +32,6 @@ public class convert {
 				SootMethod method = body.getMethod();
 				String methodSig = method.getSignature();
 				System.out.println(methodSig);
-				/* System.out.println(method.getName()); */
 				if ((!methodSig.contains("<init>"))&&(!methodSig.contains("<clinit>"))) {
 					stores.put(methodSig, body);
 				}
